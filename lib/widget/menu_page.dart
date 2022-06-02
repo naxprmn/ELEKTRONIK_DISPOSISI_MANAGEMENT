@@ -14,7 +14,10 @@ class MenuPage extends StatelessWidget {
       builder: (context, consume, child) {
         if (consume.currentLatlang != LatLng(0.0, 0.0)) {
           return Column(
-            children: [CustomSelectableText.text(consume.currentLatlang.toString()), const FormAssesment()],
+            children: [
+              CustomSelectableText.text(consume.currentLatlang.toString()),
+              FormAssesment()
+            ],
           );
         }
         return const Center(child: Text("Silahkan Pilih Koordinat"));

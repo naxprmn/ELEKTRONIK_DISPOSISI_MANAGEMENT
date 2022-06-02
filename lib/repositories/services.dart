@@ -1,22 +1,23 @@
 import 'package:elektronik_disposisi_management/model/cutom_marker_model.dart';
 import 'package:elektronik_disposisi_management/model/user_model.dart';
+import 'package:supabase/supabase.dart' as supabase;
 
 class Services {
-  Future<List<CustomMarkerModel>> getData() async {
-    Future.delayed(const Duration(seconds: 2));
-    return [
-      CustomMarkerModel(id: 1, atasan: 'Test', pelaksana: ['satu', 'dua'], lat: -7.469656, lang: 110.221183),
-      CustomMarkerModel(id: 2, atasan: 'Test dua', pelaksana: ['tiga', 'empat'], lat: -7.486187, lang: 110.217863)
-    ];
-  }
+  final _client = supabase.SupabaseClient(
+      'https://sdjjiccjylhaxkyqwvnc.supabase.co',
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkamppY2NqeWxoYXhreXF3dm5jIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTY0NTU4NjY2MiwiZXhwIjoxOTYxMTYyNjYyfQ.kCQA3towP9hzp2uXZywhyDQELBDjBt9EmTyGnhWreIo');
+  // Future<List<CustomMarkerModel>> getData() async {
+  //   _client.from('disposisi')
+  // }
 
   Future<List<User>> getUser() async {
-    Future.delayed(const Duration(seconds: 2));
-    return [
-      User(id: 1, nama: 'anggota 1'),
-      User(id: 1, nama: 'anggota 2'),
-      User(id: 1, nama: 'anggota 3'),
-      User(id: 1, nama: 'anggota 4'),
-    ];
+    List<User> user = [];
+    var availableUser =
+        await _client.from('users').select().eq("isAvailable", true).execute();
+    // print(availableUser.data);
+    for (var item in availableUser.data) {
+      user.add(User.fromMap(item));
+    }
+    return user;
   }
 }

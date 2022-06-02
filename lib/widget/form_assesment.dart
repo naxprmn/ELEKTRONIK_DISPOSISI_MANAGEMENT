@@ -4,15 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class FormAssesment extends StatelessWidget {
-  const FormAssesment({Key? key}) : super(key: key);
-
+  FormAssesment({Key? key}) : super(key: key);
+  String? petugas;
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Consumer<AuthProvider>(
         builder: (context, consume, child) {
-          String currentValue = 'anggota 1';
-
           return Form(
               child: Column(
             children: [
@@ -26,11 +24,15 @@ class FormAssesment extends StatelessWidget {
                 decoration: _decorationForInput('Kolom 3'),
               ),
               DropdownButtonFormField(
-                  value: currentValue,
-                  items: consume.listAnggota.map((e) => DropdownMenuItem(value: e.nama, child: Text(e.nama))).toList(),
-                  onChanged: (newvalue) {
-                    currentValue = newvalue.toString();
-                  }),
+                items: consume.listAnggota
+                    .map((e) =>
+                        DropdownMenuItem(value: e.name, child: Text(e.name)))
+                    .toList(),
+                onChanged: (newvalue) {
+                  petugas = newvalue.toString();
+                },
+                hint: Text('Pilih Petugas'),
+              ),
               const SizedBox(
                 height: 10,
               ),

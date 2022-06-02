@@ -6,7 +6,8 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
 class MapProvider extends ChangeNotifier {
-  final LatLng _center = LatLng(-7.47717, 110.21817); // center coordinates magelang
+  final LatLng _center =
+      LatLng(-7.47717, 110.21817); // center coordinates magelang
   final MapController _mapController = MapController();
   final List<Marker> _marker = [];
   final List<CircleMarker> _circleMarker = [];
@@ -53,27 +54,27 @@ class MapProvider extends ChangeNotifier {
   }
 
   initData() async {
-    List<CustomMarkerModel> data = await Services().getData();
-    for (var item in data) {
-      _circleMarker.add(
-        CircleMarker(
-          color: Colors.green.withOpacity(0.5),
-          borderStrokeWidth: 2,
-          useRadiusInMeter: true,
-          point: LatLng(item.lat, item.lang),
-          radius: 250,
-        ),
-      );
-      _marker.add(Marker(
-        width: 50.0,
-        height: 50.0,
-        point: LatLng(item.lat, item.lang),
-        builder: (ctx) => IconButton(
-            onPressed: () {
-              BottomSheetMap.bottomSheet(ctx, item);
-            },
-            icon: const Icon(Icons.keyboard_double_arrow_down_rounded)),
-      ));
-    }
+    // List<CustomMarkerModel> data = await Services().getData();
+    // for (var item in data) {
+    //   _circleMarker.add(
+    //     CircleMarker(
+    //       color: Colors.green.withOpacity(0.5),
+    //       borderStrokeWidth: 2,
+    //       useRadiusInMeter: true,
+    //       point: LatLng(item.lat, item.lang),
+    //       radius: 250,
+    //     ),
+    //   );
+    //   _marker.add(Marker(
+    //     width: 50.0,
+    //     height: 50.0,
+    //     point: LatLng(item.lat, item.lang),
+    //     builder: (ctx) => IconButton(
+    //         onPressed: () {
+    //           BottomSheetMap.bottomSheet(ctx, item);
+    //         },
+    //         icon: const Icon(Icons.keyboard_double_arrow_down_rounded)),
+    //   ));
+    // }
   }
 }
