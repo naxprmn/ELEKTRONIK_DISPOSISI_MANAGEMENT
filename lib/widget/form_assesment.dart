@@ -1,48 +1,51 @@
-import 'package:elektronik_disposisi_management/provider/auth_provider.dart';
+import 'package:elektronik_disposisi_management/providers/general_provider.dart';
 import 'package:elektronik_disposisi_management/widget/snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class FormAssesment extends StatelessWidget {
-  FormAssesment({Key? key}) : super(key: key);
-  String? petugas;
+  const FormAssesment({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: Consumer<AuthProvider>(
+      child: Consumer(
         builder: (context, consume, child) {
-          return Form(
-              child: Column(
-            children: [
-              TextFormField(
-                decoration: _decorationForInput('Kolom 1'),
-              ),
-              TextFormField(
-                decoration: _decorationForInput('Kolom 2'),
-              ),
-              TextFormField(
-                decoration: _decorationForInput('Kolom 3'),
-              ),
-              DropdownButtonFormField(
-                items: consume.listAnggota
-                    .map((e) =>
-                        DropdownMenuItem(value: e.name, child: Text(e.name)))
-                    .toList(),
-                onChanged: (newvalue) {
-                  petugas = newvalue.toString();
-                },
-                hint: Text('Pilih Petugas'),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    ShowInSnacbar.build("Ceritanya Terkirim", Colors.blue);
+          String? petugas;
+          return consume.watch(petugasProvider).when(data: (data) {
+            return Form(
+                child: Column(
+              children: [
+                TextFormField(
+                  decoration: _decorationForInput('Kolom 1'),
+                ),
+                TextFormField(
+                  decoration: _decorationForInput('Kolom 2'),
+                ),
+                TextFormField(
+                  decoration: _decorationForInput('Kolom 3'),
+                ),
+                DropdownButtonFormField(
+                  items: data.map((e) => DropdownMenuItem(value: e.name, child: Text(e.name))).toList(),
+                  onChanged: (newvalue) {
+                    petugas = newvalue.toString();
                   },
-                  child: const Text('Kirim Tugas'))
-            ],
-          ));
+                  hint: const Text('Pilih Petugas'),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      ShowInSnacbar.build("Ceritanya Terkirim", Colors.blue);
+                    },
+                    child: const Text('Kirim Tugas'))
+              ],
+            ));
+          }, error: (error, stackTrace) {
+            return Text(error.toString());
+          }, loading: () {
+            return const CircularProgressIndicator();
+          });
         },
       ),
     );

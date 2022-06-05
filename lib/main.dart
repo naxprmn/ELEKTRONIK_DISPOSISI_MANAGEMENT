@@ -1,23 +1,10 @@
-import 'package:elektronik_disposisi_management/provider/auth_provider.dart';
-import 'package:elektronik_disposisi_management/provider/map_provider.dart';
-import 'package:elektronik_disposisi_management/provider/view_provider.dart';
 import 'package:elektronik_disposisi_management/view/homepage.dart';
 import 'package:elektronik_disposisi_management/view/shared.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider<ViewProvider>(
-      create: (context) => ViewProvider(),
-    ),
-    ChangeNotifierProvider<AuthProvider>(
-      create: (context) => AuthProvider(),
-    ),
-    ChangeNotifierProvider<MapProvider>(
-      create: (context) => MapProvider(),
-    ),
-  ], child: const MyApp()));
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
