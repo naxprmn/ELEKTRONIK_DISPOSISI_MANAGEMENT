@@ -1,6 +1,4 @@
-import 'package:elektronik_disposisi_management/model/disposisi_model.dart';
 import 'package:elektronik_disposisi_management/model/map_model.dart';
-import 'package:elektronik_disposisi_management/repositories/services.dart';
 import 'package:elektronik_disposisi_management/providers/general_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';

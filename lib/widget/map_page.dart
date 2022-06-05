@@ -74,7 +74,7 @@ class MapPage extends StatelessWidget {
             },
           );
         }, error: (error, stacktrace) {
-          return Text(error.toString());
+          return Center(child: Text(error.toString()));
         }, loading: () {
           return const Center(
             child: CircularProgressIndicator(),
