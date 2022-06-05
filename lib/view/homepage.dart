@@ -1,12 +1,13 @@
 import 'package:elektronik_disposisi_management/widget/map_page.dart';
 import 'package:elektronik_disposisi_management/widget/menu_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Elektronik Disposisi Management"),

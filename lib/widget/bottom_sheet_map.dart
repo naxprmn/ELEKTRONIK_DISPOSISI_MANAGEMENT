@@ -1,11 +1,11 @@
 // ignore_for_file: unused_element, prefer_const_literals_to_create_immutables
 
-import 'package:elektronik_disposisi_management/model/cutom_marker_model.dart';
+import 'package:elektronik_disposisi_management/model/disposisi_model.dart';
 import 'package:elektronik_disposisi_management/style/style_for_text.dart';
 import 'package:flutter/material.dart';
 
 abstract class BottomSheetMap {
-  static bottomSheet(BuildContext context, CustomMarkerModel model) {
+  static bottomSheet(BuildContext context, DisposisiModel disposisi) {
     showModalBottomSheet<void>(
         isDismissible: false,
         shape: const RoundedRectangleBorder(
@@ -13,6 +13,7 @@ abstract class BottomSheetMap {
         ),
         context: context,
         builder: (BuildContext context) {
+          disposisi.petugas as List;
           // ignore: sized_box_for_whitespace
           return Padding(
             padding: const EdgeInsets.all(15.0),
@@ -26,7 +27,7 @@ abstract class BottomSheetMap {
                     height: 5,
                   ),
                   Text(
-                    "ATASAN : ${model.atasan}",
+                    "ATASAN : ${disposisi.atasan}",
                     style: StyleForText.smallStyle,
                   ),
                   const SizedBox(
@@ -35,18 +36,18 @@ abstract class BottomSheetMap {
                   const Text("PELAKSANA :", style: StyleForText.smallStyle),
                   ListView.builder(
                     shrinkWrap: true,
-                    itemCount: model.pelaksana.length,
+                    itemCount: disposisi.petugas.length,
                     itemBuilder: (context, index) {
-                      if (model.pelaksana.isNotEmpty) {
-                        return Center(child: Text(model.pelaksana[index]));
+                      if (disposisi.petugas.isNotEmpty) {
+                        return Center(child: Text(disposisi.petugas[index]));
                       } else {
                         return const Center(child: Text("loading"));
                       }
                     },
                   ),
                   const Text("POSISI :", style: StyleForText.smallStyle),
-                  Text("Lat : ${model.lat}"),
-                  Text("Lat : ${model.lang}"),
+                  Text("Lat : ${disposisi.lat}"),
+                  Text("Lat : ${disposisi.lang}"),
                 ],
               ),
             ),
